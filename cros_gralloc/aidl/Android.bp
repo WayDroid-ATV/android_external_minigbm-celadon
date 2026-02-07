@@ -16,19 +16,19 @@
 package {
     // See: http://go/android-license-faq
     // A large-scale-change added 'default_applicable_licenses' to import
-    // all of the 'license_kinds' from "external_minigbm_license"
+    // all of the 'license_kinds' from "external_minigbm_celadon_license"
     // to get the below license kinds:
     //   SPDX-license-identifier-Apache-2.0
     //   SPDX-license-identifier-BSD
-    default_applicable_licenses: ["external_minigbm_license"],
+    default_applicable_licenses: ["external_minigbm_celadon_license"],
 }
 
 cc_binary {
-    name: "android.hardware.graphics.allocator-service.minigbm",
-    defaults: ["minigbm_cros_gralloc_defaults"],
+    name: "android.hardware.graphics.allocator-service.minigbm_celadon",
+    defaults: ["minigbm_celadon_cros_gralloc_defaults"],
     relative_install_path: "hw",
-    init_rc: ["allocator.rc"],
-    vintf_fragments: ["allocator.xml"],
+    init_rc: ["allocator_celadon.rc"],
+    vintf_fragments: ["allocator_celadon.xml"],
     vendor: true,
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
@@ -38,8 +38,8 @@ cc_binary {
         "libgralloctypes",
         "libhidlbase",
         "liblog",
-        "libminigbm_gralloc_intel",
-        "libminigbm_gralloc4_utils",
+        "libminigbm_celadon_gralloc_intel",
+        "libminigbm_celadon_gralloc4_utils",
     ],
     static_libs: [
         "libaidlcommonsupport",

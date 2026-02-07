@@ -20,16 +20,16 @@ package {
     // to get the below license kinds:
     //   SPDX-license-identifier-Apache-2.0
     //   SPDX-license-identifier-BSD
-    default_applicable_licenses: ["external_minigbm_license"],
+    default_applicable_licenses: ["external_minigbm_celadon_license"],
 }
 
 cc_library_shared {
-    name: "mapper.minigbm",
-    defaults: ["minigbm_gralloc4_common_defaults"],
-    vintf_fragments: ["mapper.minigbm.xml"],
+    name: "mapper.minigbm_celadon",
+    defaults: ["minigbm_celadon_gralloc4_common_defaults"],
+    vintf_fragments: ["mapper.minigbm_celadon.xml"],
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
-        "libminigbm_gralloc_intel",
+        "libminigbm_celadon_gralloc_intel",
     ],
     header_libs: [
         "libbase_headers",
@@ -37,7 +37,7 @@ cc_library_shared {
         "libimapper_providerutils",
     ],
     srcs: [
-        ":minigbm_gralloc4_mapper_files",
+        ":minigbm_celadon_gralloc4_mapper_files",
         "Mapper.cpp",
     ],
     cpp_std: "c++20",

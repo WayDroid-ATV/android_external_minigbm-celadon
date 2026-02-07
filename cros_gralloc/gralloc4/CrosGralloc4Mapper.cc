@@ -11,6 +11,7 @@
 #include <aidl/android/hardware/graphics/common/PlaneLayout.h>
 #include <aidl/android/hardware/graphics/common/Rect.h>
 #include <cutils/native_handle.h>
+#include <cutils/properties.h>
 #include <gralloctypes/Gralloc4.h>
 
 #include "cros_gralloc/cros_gralloc_helpers.h"
@@ -19,6 +20,8 @@
 #ifdef USE_GRALLOC1
 #include "cros_gralloc/i915_private_android_types.h"
 #endif
+
+#define GRALLOC_NAME "minigbm_celadon"
 
 using aidl::android::hardware::graphics::common::BlendMode;
 using aidl::android::hardware::graphics::common::Dataspace;
@@ -1163,5 +1166,13 @@ Return<void> CrosGralloc4Mapper::getReservedRegion(void* rawHandle, getReservedR
 }
 
 android::hardware::graphics::mapper::V4_0::IMapper* HIDL_FETCH_IMapper(const char* /*name*/) {
-    return static_cast<android::hardware::graphics::mapper::V4_0::IMapper*>(new CrosGralloc4Mapper);
+    char gralloc[PROPERTY_VALUE_MAX];
+
+    property_get("ro.hardware.gralloc", gralloc, "");
+
+    if (strcmp(gralloc, GRALLOC_NAME) == 0) {
+        return static_cast<android::hardware::graphics::mapper::V4_0::IMapper*>(new CrosGralloc4Mapper);
+    } else {
+        return NULL;
+    }
 }

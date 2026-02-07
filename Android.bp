@@ -2,7 +2,7 @@
 // found in the LICENSE file.
 
 package {
-    default_applicable_licenses: ["external_minigbm_license"],
+    default_applicable_licenses: ["external_minigbm_celadon_license"],
 }
 
 // Added automatically by a large-scale-change that took the approach of
@@ -20,7 +20,7 @@ package {
 // used in the current project.
 // See: http://go/android-license-faq
 license {
-    name: "external_minigbm_license",
+    name: "external_minigbm_celadon_license",
     visibility: [":__subpackages__"],
     license_kinds: [
         "SPDX-license-identifier-Apache-2.0",
@@ -33,7 +33,7 @@ license {
 }
 
 filegroup {
-    name: "minigbm_core_files",
+    name: "minigbm_celadon_core_files",
 
     srcs: [
         "amdgpu.c",
@@ -55,7 +55,7 @@ filegroup {
 }
 
 filegroup {
-    name: "minigbm_gralloc_common_files",
+    name: "minigbm_celadon_gralloc_common_files",
 
     srcs: [
         "cros_gralloc/cros_gralloc_buffer.cc",
@@ -65,12 +65,12 @@ filegroup {
 }
 
 filegroup {
-    name: "minigbm_gralloc1_files",
+    name: "minigbm_celadon_gralloc1_files",
     srcs: ["cros_gralloc/gralloc1/cros_gralloc1_module.cc"],
 }
 
 cc_defaults {
-    name: "minigbm_defaults",
+    name: "minigbm_celadon_defaults",
 
     cflags: [
         "-D_GNU_SOURCE=1",
@@ -98,22 +98,22 @@ cc_defaults {
 }
 
 cc_library_headers {
-    name: "minigbm_headers",
+    name: "minigbm_celadon_headers",
     host_supported: true,
     vendor_available: true,
     export_include_dirs: ["."],
 }
 
 cc_defaults {
-    name: "minigbm_cros_gralloc_defaults",
+    name: "minigbm_celadon_cros_gralloc_defaults",
 
-    defaults: ["minigbm_defaults"],
+    defaults: ["minigbm_celadon_defaults"],
 
     header_libs: [
         "libhardware_headers",
         "libnativebase_headers",
         "libsystem_headers",
-        "minigbm_headers",
+        "minigbm_celadon_headers",
     ],
 
     static_libs: ["libarect"],
@@ -131,22 +131,22 @@ cc_defaults {
 }
 
 cc_defaults {
-    name: "minigbm_cros_gralloc_library_defaults",
+    name: "minigbm_celadon_cros_gralloc_library_defaults",
 
-    defaults: ["minigbm_cros_gralloc_defaults"],
+    defaults: ["minigbm_celadon_cros_gralloc_defaults"],
     srcs: [
-        ":minigbm_core_files",
-        ":minigbm_gralloc_common_files",
+        ":minigbm_celadon_core_files",
+        ":minigbm_celadon_gralloc_common_files",
     ],
 }
 
 cc_defaults {
-    name: "minigbm_cros_gralloc1_defaults",
+    name: "minigbm_celadon_cros_gralloc1_defaults",
 
-    defaults: ["minigbm_cros_gralloc_defaults"],
+    defaults: ["minigbm_celadon_cros_gralloc_defaults"],
     relative_install_path: "hw",
 
-    srcs: [":minigbm_gralloc1_files"],
+    srcs: [":minigbm_celadon_gralloc1_files"],
     cflags: [
         "-Wno-switch",
         "-Wno-cast-qual",
@@ -157,8 +157,8 @@ cc_defaults {
 
 // Intel
 cc_library_shared {
-    name: "libminigbm_gralloc_intel",
-    defaults: ["minigbm_cros_gralloc_library_defaults"],
+    name: "libminigbm_celadon_gralloc_intel",
+    defaults: ["minigbm_celadon_cros_gralloc_library_defaults"],
     cflags: [
         "-DDRV_I915",
         "-DDRV_XE",
@@ -183,9 +183,9 @@ cc_library_shared {
 }
 
 cc_library_shared {
-    name: "gralloc.intel",
-    defaults: ["minigbm_cros_gralloc1_defaults"],
-    shared_libs: ["libminigbm_gralloc_intel"],
+    name: "gralloc.minigbm_celadon",
+    defaults: ["minigbm_celadon_cros_gralloc1_defaults"],
+    shared_libs: ["libminigbm_celadon_gralloc_intel"],
     enabled: false,
     local_include_dirs: [
         "cros_gralloc",
