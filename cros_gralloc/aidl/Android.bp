@@ -49,4 +49,13 @@ cc_binary {
         "Main.cpp",
     ],
     cflags: ["-DUSE_GRALLOC1",],
+    enabled: false,
+    arch: {
+        x86: {
+            enabled: true,
+        },
+        x86_64: {
+            enabled: true,
+        },
+    },
 }

@@ -53,6 +53,15 @@ cc_library {
         "libhidlbase",
         "libminigbm_celadon_gralloc_intel",
     ],
+    enabled: false,
+    arch: {
+        x86: {
+            enabled: true,
+        },
+        x86_64: {
+            enabled: true,
+        },
+    },
 }
 
 cc_defaults {

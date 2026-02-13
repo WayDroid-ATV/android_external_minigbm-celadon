@@ -42,4 +42,13 @@ cc_library_shared {
     ],
     cpp_std: "c++20",
     cflags: ["-DUSE_GRALLOC1",],
+    enabled: false,
+    arch: {
+        x86: {
+            enabled: true,
+        },
+        x86_64: {
+            enabled: true,
+        },
+    },
 }
