@@ -15,6 +15,8 @@
 
 #include "cros_gralloc/gralloc4/CrosGralloc4Utils.h"
 
+#define GRALLOC_NAME "minigbm_celadon"
+
 using aidl::android::hardware::common::NativeHandle;
 using BufferDescriptorInfoV4 =
         android::hardware::graphics::mapper::V4_0::IMapper::BufferDescriptorInfo;
@@ -229,7 +231,7 @@ ndk::ScopedAStatus Allocator::isSupported(const BufferDescriptorInfo& descriptor
 }
 
 ndk::ScopedAStatus Allocator::getIMapperLibrarySuffix(std::string* outResult) {
-    *outResult = "minigbm";
+    *outResult = GRALLOC_NAME;
     return ndk::ScopedAStatus::ok();
 }
 

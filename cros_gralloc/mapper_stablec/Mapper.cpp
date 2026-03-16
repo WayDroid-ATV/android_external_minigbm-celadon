@@ -8,6 +8,7 @@
 #include <aidl/android/hardware/graphics/common/BufferUsage.h>
 #include <aidl/android/hardware/graphics/common/PixelFormat.h>
 #include <aidl/android/hardware/graphics/common/StandardMetadataType.h>
+#include <android-base/properties.h>
 #include <android-base/unique_fd.h>
 #include <android/hardware/graphics/mapper/IMapper.h>
 #include <android/hardware/graphics/mapper/utils/IMapperMetadataTypes.h>
@@ -21,6 +22,8 @@
 #include "cros_gralloc/gralloc4/CrosGralloc4Utils.h"
 
 #include "cros_gralloc/i915_private_android_types.h"
+
+#define GRALLOC_NAME "minigbm_celadon"
 
 using namespace ::aidl::android::hardware::graphics::common;
 using namespace ::android::hardware::graphics::mapper;
@@ -742,6 +745,10 @@ AIMapper_Error CrosGrallocMapperV5::getMutableCrosMetadata(cros_gralloc_buffer* 
 extern "C" uint32_t ANDROID_HAL_MAPPER_VERSION = AIMAPPER_VERSION_5;
 
 extern "C" AIMapper_Error AIMapper_loadIMapper(AIMapper* _Nullable* _Nonnull outImplementation) {
-    static vendor::mapper::IMapperProvider<CrosGrallocMapperV5> provider;
-    return provider.load(outImplementation);
+    if (::android::base::GetProperty("ro.hardware.gralloc", "") == GRALLOC_NAME) {
+        static vendor::mapper::IMapperProvider<CrosGrallocMapperV5> provider;
+        return provider.load(outImplementation);
+    }
+
+    return AIMAPPER_ERROR_UNSUPPORTED;
 }

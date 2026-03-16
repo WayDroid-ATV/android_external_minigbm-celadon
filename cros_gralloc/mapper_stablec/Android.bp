@@ -26,7 +26,6 @@ package {
 cc_library_shared {
     name: "mapper.minigbm_celadon",
     defaults: ["minigbm_celadon_gralloc4_common_defaults"],
-    vintf_fragments: ["mapper.minigbm_celadon.xml"],
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
         "libminigbm_celadon_gralloc_intel",

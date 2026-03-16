@@ -28,7 +28,6 @@ cc_binary {
     defaults: ["minigbm_celadon_cros_gralloc_defaults"],
     relative_install_path: "hw",
     init_rc: ["allocator_celadon.rc"],
-    vintf_fragments: ["allocator_celadon.xml"],
     vendor: true,
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
